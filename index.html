@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body style="background-image: url(https://i.pinimg.com/originals/4a/a2/5f/4aa25f27530d1df1055f98f31ad744a4.jpg); text-align:center;">
+  <h1 id="score" style="color:white">Score: 0</h1>
+    <canvas id="c" width="500" height="500" style="border-style:ridge; border-width:1em; border-radius: 5em;"></canvas>
+    <script>
+        var score=0;
+        var ctx=document.getElementById("c");
+        var c=ctx.getContext("2d");
+        var golf=new Image();
+        c.fillStyle="green";
+        c.fillRect(0,0,500,500);
+        golf.src="https://pngimg.com/uploads/golf/golf_PNG32.png"
+        c.drawImage(golf,0,0,200,120);
+        c.fillStyle="black";
+        c.beginPath();
+        var x1=Math.random()*500;
+        var y1=Math.random()*500;
+        c.arc(x1,y1,50,0,2*Math.PI);
+        c.fill();
+        var x=0;
+        var y=0;
+        var y1=Math.random()*500;
+        var y2=Math.random()*500;
+        document.onkeydown=function(e){
+            switch(e.keyCode){
+                case 37:
+                    x-=10;
+                    break;
+                case 38:
+                    y-=10;
+                    break;
+                case 39:
+                    x+=10;
+                    break;
+                case 40:
+                    y+=10;
+                    break;
+            }
+            c.clearRect(0,0,500,500);
+            c.fillStyle="green";
+            c.fillRect(0,0,500,500);
+            c.fillStyle="black";
+            c.beginPath();
+            c.arc(x1,y1,50,0,2*Math.PI);
+            c.fill();
+            c.drawImage(golf,x,y,200,120);
+            if(x1-x<=500&&x1-x>=50&&y1-y<=500&&y1-y>=50){
+                score++;
+                document.getElementById("score").innerHTML="Score: "+score;
+                x1=Math.random()*500;
+                y1=Math.random()*500;
+                c.clearRect(0,0,500,500);
+                c.fillStyle="green";
+                c.fillRect(0,0,500,500);
+                c.fillStyle="black";
+                c.beginPath();
+                c.arc(x1,y1,50,0,2*Math.PI);
+                c.fill();
+                c.drawImage(golf,0,0,200,120);
+            }
+            if(score==100){
+                alert("You Win!");
+                location.reload();
+            }
+        }
+</script>
+</body>
+</html>
